@@ -1,7 +1,7 @@
 [project]
 name = "stream"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.1.01"
+description = "a simple text to text conv using groq api and using gpt oss "
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
