@@ -5,8 +5,13 @@ description = "a simple text to text conv using groq api and using gpt oss "
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi>=0.128.0",
+    "fastapi[standard]>=0.128.0",
+    "google>=3.0.0",
+    "google-genai>=1.59.0",
+    "groq>=0.37.1",
+    "langchain-ollama>=1.0.1",
     "langchain[groq]>=1.2.4",
+    "ollama>=0.6.1",
     "python-decouple>=3.8",
     "python-dotenv>=1.2.1",
 ]
