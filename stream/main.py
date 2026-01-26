@@ -7,6 +7,8 @@ from groq import AsyncGroq
 from models.gemini import gemini_chat
 from decouple import config
 import os 
+from PIL import Image
+
 from pathlib import Path
 krypton = Krypton()
 gpt = Gpt()
@@ -124,6 +126,31 @@ async def transcribe_audio(file: UploadFile = File(...)):
     finally:
 
         await file.close()
+
+
+
+
+
+
+# @app.post("/api/v1/image/to/text/")
+# async def read_image_text(image:UploadFile=File(...)):
+    
+#     image_bytes = await image.read()
+#     img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+#     img_array = np.array(img)
+#     results = reader.readtext(img_array)
+
+#     texts = []
+#     for _, text, conf in results:
+#         texts.append({
+#             "text": text,
+#             "confidence": float(conf)
+#         })
+
+#     return {
+#         "filename": image.filename,
+#         "results": texts
+#     }
 
 
 

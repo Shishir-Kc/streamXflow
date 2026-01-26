@@ -1,14 +1,15 @@
 from langchain_ollama import ChatOllama
 from langchain.agents import create_agent
+from tools.available_tools import run_terminal_command
 
 class Krypton:
     def __init__(self):
         self.base_model = "qwen2.5:1.5b"
-        self.system_prompt = ""
+        self.system_prompt = "you are an ai model that can control this computer system using the availabel tools "
         self.model_krypton = ChatOllama(
             model=self.base_model,
                 validate_model_on_init=True,
-                temperature=0.8,
+                temperature=0.1,
                 num_predict=1000,
                 reasoning=False       
         )
@@ -37,7 +38,7 @@ class Krypton:
     def agent_krypton(self,message:str):
         agent = create_agent(
             model=self.model_krypton,
-            tools=[self.get_weather],
+            tools=[self.get_weather,run_terminal_command],
             system_prompt=""
         )
 
@@ -46,6 +47,8 @@ class Krypton:
         )
 
         return response['messages'][1].content
+    
+
     
 
 if __name__ == "__main__":    
