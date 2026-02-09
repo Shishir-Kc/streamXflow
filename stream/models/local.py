@@ -2,12 +2,12 @@ from ollama import chat
 import json
 
 
-new_model='qwen2.5:1.5b'
+new_model='qwen3:1.7b'
 unsensored_model = 'dagbs/qwen2.5-coder-0.5b-instruct-abliterated:latest'
 reasoning_model = "deepseek-r1:1.5b"
 
-conversation_model = 'qwen2.5:1.5b'
-function_model = 'qwen2.5:1.5b'
+conversation_model = 'qwen3:1.7b'
+function_model = 'qwen3:1.7b'
 
 
 def get_current_weather(city: str): 
@@ -55,8 +55,9 @@ def generate_text(querry):
     response = chat(
         model=new_model,
         messages=messages,
-        stream=False, 
-        tools=[get_current_weather,unsensored_model] 
+        stream=False,
+        think=False,
+        tools=[get_current_weather] 
     )
 
     available_functions = {

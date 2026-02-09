@@ -7,7 +7,7 @@ from groq import AsyncGroq
 from models.gemini import gemini_chat
 from decouple import config
 import os 
-from PIL import Image
+# from PIL import Image
 
 from pathlib import Path
 krypton = Krypton()

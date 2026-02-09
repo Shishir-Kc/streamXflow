@@ -4,7 +4,7 @@ from tools.available_tools import run_terminal_command
 
 class Krypton:
     def __init__(self):
-        self.base_model = "qwen2.5:1.5b"
+        self.base_model = "qwen3:1.7b"
         self.system_prompt = "you are an ai model that can control this computer system using the availabel tools "
         self.model_krypton = ChatOllama(
             model=self.base_model,
@@ -39,7 +39,8 @@ class Krypton:
         agent = create_agent(
             model=self.model_krypton,
             tools=[self.get_weather,run_terminal_command],
-            system_prompt=""
+            system_prompt="",
+            
         )
 
         response = agent.invoke(
