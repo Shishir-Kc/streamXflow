@@ -1,57 +1,42 @@
-from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq
+from decouple import config
 from langchain.agents import create_agent
 from tools.available_tools import run_terminal_command
 
+
 class Krypton:
     def __init__(self):
-        self.base_model = "qwen3:1.7b"
+        self.base_model = "openai/gpt-oss-120b"
         self.system_prompt = "you are an ai model that can control this computer system using the availabel tools "
-        self.model_krypton = ChatOllama(
+        self.model_krypton = ChatGroq(
+            api_key=config("GROQ_API_KEY"),
             model=self.base_model,
-                validate_model_on_init=True,
-                temperature=0.1,
-                num_predict=1000,
-                reasoning=False       
+            temperature=0.1,
+            max_tokens=1000,
         )
 
-
-
-    def get_weather(self,city: str) -> str:
+    def get_weather(self, city: str) -> str:
         """Get weather for a given city."""
         return f"It's always sunny in {city}!"
 
-
-
-    def ai_krypton(self,message:str):
-        messages = [
-            ("system",self.system_prompt),
-            ("human",message)
-        ]    
+    def ai_krypton(self, message: str):
+        messages = [("system", self.system_prompt), ("human", message)]
 
         response = self.model_krypton.invoke(messages)
         return response.content
-    
 
-
-
-
-    def agent_krypton(self,message:str):
+    def agent_krypton(self, message: str):
         agent = create_agent(
             model=self.model_krypton,
-            tools=[self.get_weather,run_terminal_command],
+            tools=[self.get_weather, run_terminal_command],
             system_prompt="",
-            
         )
 
-        response = agent.invoke(
-       {"messages": [{"role": "user", "content": message}]}
-        )
+        response = agent.invoke({"messages": [{"role": "user", "content": message}]})
 
-        return response['messages'][1].content
-    
+        return response["messages"][1].content
 
-    
 
-if __name__ == "__main__":    
-    ai=Krypton()
+if __name__ == "__main__":
+    ai = Krypton()
     print(ai.ai_krypton(message="hello !"))
